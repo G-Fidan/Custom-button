@@ -1,33 +1,33 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import com.example.myapplication.databinding.ButtonCellBinding
 
 interface IButtonClick {
-    fun onClick(text: String?)
+    fun onClick(view: View?)
 }
 
-class CustomButton: ConstraintLayout, View.OnFocusChangeListener, View.OnClickListener {
+class CustomButton : FrameLayout, View.OnTouchListener, View.OnClickListener {
 
     private lateinit var binding: ButtonCellBinding
     private var isHideClearIcon = false
     var delegate: IButtonClick? = null
 
     constructor(context: Context) : super(context) {
-        if (!isInEditMode) {
-            init(context)
-        }
+        init(context)
     }
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        if (!isInEditMode) {
-            init(context)
-            parseAttributes(context, attributeSet)
-        }
+        init(context)
+        parseAttributes(context, attributeSet)
     }
 
     constructor(context: Context, attributeSet: AttributeSet, styleAttr: Int) : super(
@@ -35,51 +35,57 @@ class CustomButton: ConstraintLayout, View.OnFocusChangeListener, View.OnClickLi
         attributeSet,
         styleAttr
     ) {
-        if (!isInEditMode) {
-            init(context)
-            parseAttributes(context, attributeSet)
+        init(context)
+        parseAttributes(context, attributeSet)
+    }
+
+    override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            Log.d("EVENT", "TOUCHED DOWN")
+            binding.textView.background = ContextCompat.getDrawable(context, R.color.dark_blue)
+            binding.textView.setTextColor(ContextCompat.getColor(context, R.color.gray))
         }
+
+        if (event?.action == MotionEvent.ACTION_UP){
+            Log.d("EVENT", "TOUCHED UP")
+            binding.textView.background = ContextCompat.getDrawable(context, R.color.blue)
+            binding.textView.setTextColor(ContextCompat.getColor(context, R.color.white))
+        }
+        return false
     }
 
-    override fun onFocusChange(view: View?, focused: Boolean) {
-        changeBorderAndBackground(focused)
-    }
-
+    @SuppressLint("ClickableViewAccessibility")
     private fun init(context: Context) {
         val inputView = LayoutInflater.from(context).inflate(R.layout.button_cell, this, true)
         binding = ButtonCellBinding.bind(inputView.findViewById(R.id.buttonRoot))
-        binding.btn.onFocusChangeListener = this
-        binding.btn.setOnClickListener(this)
+        binding.textView.setOnClickListener(this)
+        binding.textView.setOnTouchListener(this)
     }
 
     private fun parseAttributes(context: Context, attributeSet: AttributeSet) {
         val attributes = context.obtainStyledAttributes(attributeSet, R.styleable.CustomButton)
-        val hint = attributes.getString(R.styleable.CustomButton_hint)
-        isHideClearIcon = attributes.getBoolean(R.styleable.CustomButton_hideClearIcon, false)
-        binding.btn.hint = hint
-        if (isHideClearIcon) {
-            binding.btn.visibility = View.GONE
-        }
+        val text = attributes.getString(R.styleable.CustomButton_text)
+        binding.textView.text = text
         attributes.recycle()
     }
 
-    private fun changeBorderAndBackground(isFocused: Boolean) {
-        if (isFocused) {
-            // show shadow
-        } else {
-            // hide shadow
-        }
-    }
-
     override fun onClick(p0: View?) {
-
+        delegate?.onClick(p0)
     }
 
-    private fun startAnimation() {
-
+    @SuppressLint("ResourceAsColor")
+    fun startProgress() {
+        binding.textView.background = ContextCompat.getDrawable(context, R.color.dark_blue)
+        binding.textView.setTextColor(ContextCompat.getColor(context, R.color.gray))
+        binding.textView.isClickable = !binding.textView.isClickable
+        binding.pb.visibility = View.VISIBLE
     }
 
-    private fun stopAnimation() {
-
+    @SuppressLint("ResourceAsColor")
+    fun stopProgress() {
+        binding.textView.background = ContextCompat.getDrawable(context, R.color.blue)
+        binding.textView.setTextColor(ContextCompat.getColor(context, R.color.white))
+        binding.textView.isClickable = !binding.textView.isClickable
+        binding.pb.visibility = View.GONE
     }
 }

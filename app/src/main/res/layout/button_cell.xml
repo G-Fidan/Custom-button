@@ -2,41 +2,74 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/buttonRoot"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    app:cardCornerRadius="8dp"
-    android:backgroundTint="@color/blue">
-        <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp">
+        <FrameLayout
+            android:id="@+id/btn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:indeterminateTint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="visible"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/blue"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    app:cornerRadius="8dp"
+                    android:gravity="center"
+                    android:text="@string/sign_in"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <ProgressBar
+                    android:id="@+id/pb"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:indeterminateTint="@color/white"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+        </FrameLayout>
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pb_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_blue"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/pb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@color/transparent"
-                    android:text="@string/sign_in"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_closed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/transparent"
+                    android:enabled="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:cornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/pb"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
 </androidx.cardview.widget.CardView>

@@ -8,6 +8,35 @@
     android:gravity="center">
 
         <com.example.myapplication.CustomButton
+            android:id="@+id/btn1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="64dp"
+            android:layout_marginTop="10dp"
+            app:text="@string/sign_in"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"/>
+
+
+        <com.example.myapplication.CustomButton
+            android:id="@+id/btn2"
+            android:layout_width="180dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="10dp"
+            app:text="@string/sign_in"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"/>
+
+
+        <com.example.myapplication.CustomButton
+            android:id="@+id/btn3"
+            android:layout_width="260dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="10dp"
+            app:text="@string/sign_in"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"/>
+
 </LinearLayout>
